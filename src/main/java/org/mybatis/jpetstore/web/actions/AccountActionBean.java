@@ -142,7 +142,7 @@ public class AccountActionBean extends AbstractActionBean {
 
   public Resolution signon() {
 
-    account = accountService.getAccount(getUsername(), getPassword());
+    account = accountService.getSecureAccount(getUsername(), getPassword());
    
     if (account == null) {
       String value = "Invalid username or password.  Signon failed.";

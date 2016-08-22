@@ -18,6 +18,9 @@ package org.mybatis.jpetstore.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.jws.WebMethod;
+import javax.jws.WebService;
+
 import org.mybatis.jpetstore.domain.Category;
 import org.mybatis.jpetstore.domain.Item;
 import org.mybatis.jpetstore.domain.Product;
@@ -31,6 +34,7 @@ import org.springframework.stereotype.Service;
  * @author Eduardo Macarron
  *
  */
+@WebService
 @Service
 public class CatalogService {
 
@@ -41,22 +45,27 @@ public class CatalogService {
   @Autowired
   private ProductMapper productMapper;
 
+  @WebMethod
   public List<Category> getCategoryList() {
     return categoryMapper.getCategoryList();
   }
 
+  @WebMethod
   public Category getCategory(String categoryId) {
     return categoryMapper.getCategory(categoryId);
   }
 
+  @WebMethod
   public Product getProduct(String productId) {
     return productMapper.getProduct(productId);
   }
 
+  @WebMethod
   public List<Product> getProductListByCategory(String categoryId) {
     return productMapper.getProductListByCategory(categoryId);
   }
 
+  @WebMethod
   public List<Product> searchProductList(String keywords) {
     List<Product> products = new ArrayList<Product>();
     for(String keyword : keywords.split("\\s+")){
@@ -65,14 +74,17 @@ public class CatalogService {
     return products;
   }
 
+  @WebMethod
   public List<Item> getItemListByProduct(String productId) {
     return itemMapper.getItemListByProduct(productId);
   }
 
+  @WebMethod
   public Item getItem(String itemId) {
     return itemMapper.getItem(itemId);
   }
 
+  @WebMethod
   public boolean isItemInStock(String itemId) {
     return itemMapper.getInventoryQuantity(itemId) > 0;
   }

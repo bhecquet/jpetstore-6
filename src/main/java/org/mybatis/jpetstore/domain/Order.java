@@ -22,10 +22,14 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * @author Eduardo Macarron
  *
  */
+@XmlRootElement(name="order") // JAXB
 public class Order implements Serializable {
 
   private static final long serialVersionUID = 6321792448424424931L;
@@ -62,6 +66,7 @@ public class Order implements Serializable {
     return orderId;
   }
 
+  @XmlElement
   public void setOrderId(int orderId) {
     this.orderId = orderId;
   }
@@ -70,6 +75,7 @@ public class Order implements Serializable {
     return username;
   }
 
+  @XmlElement
   public void setUsername(String username) {
     this.username = username;
   }
@@ -78,6 +84,7 @@ public class Order implements Serializable {
     return orderDate;
   }
 
+  @XmlElement
   public void setOrderDate(Date orderDate) {
     this.orderDate = orderDate;
   }
@@ -86,6 +93,7 @@ public class Order implements Serializable {
     return shipAddress1;
   }
 
+  @XmlElement
   public void setShipAddress1(String shipAddress1) {
     this.shipAddress1 = shipAddress1;
   }
@@ -94,6 +102,7 @@ public class Order implements Serializable {
     return shipAddress2;
   }
 
+  @XmlElement
   public void setShipAddress2(String shipAddress2) {
     this.shipAddress2 = shipAddress2;
   }
@@ -102,6 +111,7 @@ public class Order implements Serializable {
     return shipCity;
   }
 
+  @XmlElement
   public void setShipCity(String shipCity) {
     this.shipCity = shipCity;
   }
@@ -110,6 +120,7 @@ public class Order implements Serializable {
     return shipState;
   }
 
+  @XmlElement
   public void setShipState(String shipState) {
     this.shipState = shipState;
   }
@@ -118,6 +129,7 @@ public class Order implements Serializable {
     return shipZip;
   }
 
+  @XmlElement
   public void setShipZip(String shipZip) {
     this.shipZip = shipZip;
   }
@@ -126,6 +138,7 @@ public class Order implements Serializable {
     return shipCountry;
   }
 
+  @XmlElement
   public void setShipCountry(String shipCountry) {
     this.shipCountry = shipCountry;
   }
@@ -134,6 +147,7 @@ public class Order implements Serializable {
     return billAddress1;
   }
 
+  @XmlElement
   public void setBillAddress1(String billAddress1) {
     this.billAddress1 = billAddress1;
   }
@@ -142,6 +156,7 @@ public class Order implements Serializable {
     return billAddress2;
   }
 
+  @XmlElement
   public void setBillAddress2(String billAddress2) {
     this.billAddress2 = billAddress2;
   }
@@ -150,6 +165,7 @@ public class Order implements Serializable {
     return billCity;
   }
 
+  @XmlElement
   public void setBillCity(String billCity) {
     this.billCity = billCity;
   }
@@ -158,6 +174,7 @@ public class Order implements Serializable {
     return billState;
   }
 
+  @XmlElement
   public void setBillState(String billState) {
     this.billState = billState;
   }
@@ -166,6 +183,7 @@ public class Order implements Serializable {
     return billZip;
   }
 
+  @XmlElement
   public void setBillZip(String billZip) {
     this.billZip = billZip;
   }
@@ -174,6 +192,7 @@ public class Order implements Serializable {
     return billCountry;
   }
 
+  @XmlElement
   public void setBillCountry(String billCountry) {
     this.billCountry = billCountry;
   }
@@ -182,6 +201,7 @@ public class Order implements Serializable {
     return courier;
   }
 
+  @XmlElement
   public void setCourier(String courier) {
     this.courier = courier;
   }
@@ -190,6 +210,7 @@ public class Order implements Serializable {
     return totalPrice;
   }
 
+  @XmlElement
   public void setTotalPrice(BigDecimal totalPrice) {
     this.totalPrice = totalPrice;
   }
@@ -198,6 +219,7 @@ public class Order implements Serializable {
     return billToFirstName;
   }
 
+  @XmlElement
   public void setBillToFirstName(String billToFirstName) {
     this.billToFirstName = billToFirstName;
   }
@@ -206,6 +228,7 @@ public class Order implements Serializable {
     return billToLastName;
   }
 
+  @XmlElement
   public void setBillToLastName(String billToLastName) {
     this.billToLastName = billToLastName;
   }
@@ -214,6 +237,7 @@ public class Order implements Serializable {
     return shipToFirstName;
   }
 
+  @XmlElement
   public void setShipToFirstName(String shipFoFirstName) {
     this.shipToFirstName = shipFoFirstName;
   }
@@ -222,6 +246,7 @@ public class Order implements Serializable {
     return shipToLastName;
   }
 
+  @XmlElement
   public void setShipToLastName(String shipToLastName) {
     this.shipToLastName = shipToLastName;
   }
@@ -230,6 +255,7 @@ public class Order implements Serializable {
     return creditCard;
   }
 
+  @XmlElement
   public void setCreditCard(String creditCard) {
     this.creditCard = creditCard;
   }
@@ -238,6 +264,7 @@ public class Order implements Serializable {
     return expiryDate;
   }
 
+  @XmlElement
   public void setExpiryDate(String expiryDate) {
     this.expiryDate = expiryDate;
   }
@@ -246,6 +273,7 @@ public class Order implements Serializable {
     return cardType;
   }
 
+  @XmlElement
   public void setCardType(String cardType) {
     this.cardType = cardType;
   }
@@ -254,6 +282,7 @@ public class Order implements Serializable {
     return locale;
   }
 
+  @XmlElement
   public void setLocale(String locale) {
     this.locale = locale;
   }
@@ -262,10 +291,12 @@ public class Order implements Serializable {
     return status;
   }
 
+  @XmlElement
   public void setStatus(String status) {
     this.status = status;
   }
 
+  @XmlElement
   public void setLineItems(List<LineItem> lineItems) {
     this.lineItems = lineItems;
   }

@@ -19,6 +19,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.jws.WebMethod;
+import javax.jws.WebService;
+
 import org.mybatis.jpetstore.domain.Item;
 import org.mybatis.jpetstore.domain.LineItem;
 import org.mybatis.jpetstore.domain.Order;
@@ -35,6 +38,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Eduardo Macarron
  *
  */
+@WebService
 @Service
 public class OrderService {
 
@@ -47,6 +51,7 @@ public class OrderService {
   @Autowired
   private LineItemMapper lineItemMapper;
 
+  @WebMethod
   @Transactional
   public void insertOrder(Order order) {
     order.setOrderId(getNextId("ordernum"));
@@ -69,21 +74,24 @@ public class OrderService {
     }
   }
 
+  @WebMethod
   @Transactional
   public Order getOrder(int orderId) {
     Order order = orderMapper.getOrder(orderId);
-    order.setLineItems(lineItemMapper.getLineItemsByOrderId(orderId));
-
-    for (int i = 0; i < order.getLineItems().size(); i++) {
-      LineItem lineItem = (LineItem) order.getLineItems().get(i);
-      Item item = itemMapper.getItem(lineItem.getItemId());
-      item.setQuantity(itemMapper.getInventoryQuantity(lineItem.getItemId()));
-      lineItem.setItem(item);
+    if (order != null) {
+	    order.setLineItems(lineItemMapper.getLineItemsByOrderId(orderId));
+	
+	    for (int i = 0; i < order.getLineItems().size(); i++) {
+	      LineItem lineItem = (LineItem) order.getLineItems().get(i);
+	      Item item = itemMapper.getItem(lineItem.getItemId());
+	      item.setQuantity(itemMapper.getInventoryQuantity(lineItem.getItemId()));
+	      lineItem.setItem(item);
+	    }
     }
-
     return order;
   }
 
+  @WebMethod
   public List<Order> getOrdersByUsername(String username) {
     return orderMapper.getOrdersByUsername(username);
   }

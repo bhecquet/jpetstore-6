@@ -15,6 +15,9 @@
  */
 package org.mybatis.jpetstore.service;
 
+import javax.jws.WebMethod;
+import javax.jws.WebService;
+
 import org.mybatis.jpetstore.domain.Account;
 import org.mybatis.jpetstore.mapper.AccountMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +28,8 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Eduardo Macarron
  *
  */
-@Service
+@WebService // WSDL, ex : http://localhost:8080/jpetstore/account
+@Service("accountService")
 public class AccountService {
 
   @Autowired
@@ -35,10 +39,12 @@ public class AccountService {
     return accountMapper.getAccountByUsername(username);
   }
 
-  public Account getAccount(String username, String password) {
+  @WebMethod
+  public Account getSecureAccount(String username, String password) {
     return accountMapper.getAccountByUsernameAndPassword(username, password);
   }
 
+  @WebMethod
   @Transactional
   public void insertAccount(Account account) {
     accountMapper.insertAccount(account);
@@ -46,6 +52,7 @@ public class AccountService {
     accountMapper.insertSignon(account);
   }
 
+  @WebMethod
   @Transactional
   public void updateAccount(Account account) {
     accountMapper.updateAccount(account);
@@ -55,5 +62,6 @@ public class AccountService {
       accountMapper.updateSignon(account);
     }
   }
+
 
 }

@@ -124,6 +124,54 @@
       <scope>test</scope>
     </dependency>
     
+    <!-- SOAP web service -->
+    <dependency>
+		<groupId>org.apache.axis2</groupId>
+		<artifactId>axis2-jaxws</artifactId>
+		<version>1.7.1</version>
+	</dependency>
+	<!-- GlassFish (genere le web service a partir de JaxWS) -->
+	<dependency>
+		<groupId>org.glassfish.web</groupId>
+		<artifactId>el-impl</artifactId>
+		<version>2.2</version>
+	</dependency>
+    
+    <!-- REST web service -->
+    <dependency>
+		<groupId>javax.ws.rs</groupId>
+		<artifactId>javax.ws.rs-api</artifactId>
+		<version>2.0</version>
+	</dependency>
+	<dependency>
+        <groupId>org.glassfish.jersey.containers</groupId>
+        <artifactId>jersey-container-servlet</artifactId>
+        <version>2.23.2</version>
+	</dependency>
+	<!-- use jersey with Spring -->
+	<dependency>
+	    <groupId>org.glassfish.jersey.ext</groupId>
+	    <artifactId>jersey-spring3</artifactId>
+	    <version>2.23.2</version>
+	</dependency>
+	<!-- enable JSON -->
+	<dependency>
+	    <groupId>org.glassfish.jersey.media</groupId>
+	    <artifactId>jersey-media-json-jackson</artifactId>
+	    <version>2.23.2</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.glassfish.jersey.media</groupId>
+	    <artifactId>jersey-media-moxy</artifactId>
+	    <version>2.23.2</version>
+	</dependency>
+	<!-- enable JSON with JXB annotation -->
+	<dependency>
+	  <groupId>com.fasterxml.jackson.module</groupId>
+	  <artifactId>jackson-module-jaxb-annotations</artifactId>
+	  <version>2.4.0</version>
+	</dependency>
+	
   </dependencies>
 
   <build>
