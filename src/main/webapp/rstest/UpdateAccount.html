@@ -1,0 +1,109 @@
+<!--
+
+       Copyright 2010-2016 the original author or authors.
+
+       Licensed under the Apache License, Version 2.0 (the "License");
+       you may not use this file except in compliance with the License.
+       You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+       Unless required by applicable law or agreed to in writing, software
+       distributed under the License is distributed on an "AS IS" BASIS,
+       WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+       See the License for the specific language governing permissions and
+       limitations under the License.
+
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <title>JPetStore REST web service</title>
+  <link rel="StyleSheet" href="../css/jpetstore.css" type="text/css" media="screen"/>
+</head>
+
+<body onerror="handleError()">
+<div id="Content">
+  <h2>Welcome to JPetStore 6 web service (REST)</h2>
+
+	<h3>Test Account service : Update Account</h3>
+	
+<form method="post" action="http://localhost:8080/jpetstore/jpetstoreAccount/accounts/updateAccount">
+
+	<h3>User Information</h3>
+
+	<table>
+		<tr>
+			<td><input type="text" name="tbUsername" placeholder="USERNAME" /></td>
+		</tr>
+		<tr>
+			<td><input type="text" name="tbPassword" placeholder="PASSWORD" /></td>
+		</tr>
+	</table>
+
+	<h3>Account Information</h3>
+
+	<table>
+		<tr>
+			<td><input type="text" name="tbFirstname" placeholder="FIRSTNAME" /></td>
+		</tr>
+		<tr>
+			<td><input type="text" name="tbLastname" placeholder="LASTNAME" /></td>
+		</tr>
+		<tr>
+			<td><input type="text" name="tbEmail" placeholder="EMAIL" /></td>
+		</tr>
+		<tr>
+			<td><input type="text" name="tbPhone" placeholder="PHONE" /></td>
+		</tr>
+		<tr>
+			<td><input type="text" name="tbAddress1" placeholder="ADDRESS 1" /></td>
+		</tr>
+		<tr>
+			<td><input type="text" name="tbAddress2" placeholder="ADDRESS 2" /></td>
+		</tr>
+		<tr>
+			<td><input type="text" name="tbCity" placeholder="CITY" /></td>
+		</tr>
+		<tr>
+			<td><input type="text" name="tbState" placeholder="STATE" /></td>
+		</tr>
+		<tr>
+			<td><input type="text" name="tbZip" placeholder="ZIP" /></td>
+		</tr>
+		<tr>
+			<td><input type="text" name="tbCountry" placeholder="COUNTRY" /></td>
+		</tr>
+	</table>
+
+	<h3>Profile Information</h3>
+
+	<table>
+		<tr>
+			<td><input type="text" name="tbLanguage" placeholder="LANGUAGE" /></td>
+		</tr>
+		<tr>
+			<td><input type="text" name="tbCategory" placeholder="CATEGORY" /></td>
+		</tr>
+		<tr>
+			<td><input type="checkbox" value="true" name="tbEnableList" /></td>
+		</tr>
+		<tr>
+			<td><input type="checkbox" value="true" name="tbEnableBanner" /></td>
+		</tr>
+	</table>
+
+	<input type="submit" value="Save Account Information" />
+</form>
+<br />
+<a href="/jpetstore/rstest.html">test rs service page</a>
+	
+	
+  <p><sub>Copyright www.mybatis.org </sub></p>
+
+</div>
+</body>
+</html>

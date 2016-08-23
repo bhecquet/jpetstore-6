@@ -130,7 +130,7 @@
 		<artifactId>axis2-jaxws</artifactId>
 		<version>1.7.1</version>
 	</dependency>
-	<!-- GlassFish (genere le web service a partir de JaxWS) -->
+	<!-- GlassFish (generate the web service from JaxWS) -->
 	<dependency>
 		<groupId>org.glassfish.web</groupId>
 		<artifactId>el-impl</artifactId>

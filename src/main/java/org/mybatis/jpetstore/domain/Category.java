@@ -17,22 +17,32 @@ package org.mybatis.jpetstore.domain;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * @author Eduardo Macarron
  *
  */
+@XmlRootElement(name="category") // JAXB (xml) and JSON 
 public class Category implements Serializable {
 
   private static final long serialVersionUID = 3992469837058393712L;
 
+  @JsonProperty
   private String categoryId;
+  @JsonProperty
   private String name;
+  @JsonProperty
   private String description;
 
   public String getCategoryId() {
     return categoryId;
   }
 
+  @XmlElement
   public void setCategoryId(String categoryId) {
     this.categoryId = categoryId.trim();
   }
@@ -41,6 +51,7 @@ public class Category implements Serializable {
     return name;
   }
 
+  @XmlElement
   public void setName(String name) {
     this.name = name;
   }
@@ -49,6 +60,7 @@ public class Category implements Serializable {
     return description;
   }
 
+  @XmlElement
   public void setDescription(String description) {
     this.description = description;
   }

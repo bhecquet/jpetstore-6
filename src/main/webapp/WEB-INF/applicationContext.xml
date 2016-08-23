@@ -22,11 +22,17 @@
        xmlns:jdbc="http://www.springframework.org/schema/jdbc"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
+       xmlns:ws="http://jax-ws.dev.java.net/spring/core"
+       xmlns:wss="http://jax-ws.dev.java.net/spring/servlet"
        xsi:schemaLocation="http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
      http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
      http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
      http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
-     http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd">
+     http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd
+     http://jax-ws.dev.java.net/spring/core
+     http://jax-ws.dev.java.net/spring/core.xsd
+     http://jax-ws.dev.java.net/spring/servlet
+     http://jax-ws.dev.java.net/spring/servlet.xsd">
 
    <!-- in-memory database and a datasource -->
     <jdbc:embedded-database id="dataSource">
@@ -54,4 +60,11 @@
 
     <!-- scan for mappers and let them be autowired -->
     <mybatis:scan base-package="org.mybatis.jpetstore.mapper" />
+    
+<!--     inject mappers into SOAP service -->
+<!--     <wss:binding url="/account"> -->
+<!--         <wss:service> -->
+<!--             <ws:service bean="#helloWs"/> -->
+<!--         </wss:service> -->
+<!--     </wss:binding> -->
 </beans>

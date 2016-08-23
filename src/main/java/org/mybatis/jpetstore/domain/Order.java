@@ -25,41 +25,70 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * @author Eduardo Macarron
  *
  */
-@XmlRootElement(name="order") // JAXB
+@XmlRootElement(name="order") // JAXB (xml) and JSON 
 public class Order implements Serializable {
 
   private static final long serialVersionUID = 6321792448424424931L;
 
+  @JsonProperty
   private int orderId;
+  @JsonProperty
   private String username;
+  @JsonProperty
   private Date orderDate;
+  @JsonProperty
   private String shipAddress1;
+  @JsonProperty
   private String shipAddress2;
+  @JsonProperty
   private String shipCity;
+  @JsonProperty
   private String shipState;
+  @JsonProperty
   private String shipZip;
+  @JsonProperty
   private String shipCountry;
+  @JsonProperty
   private String billAddress1;
+  @JsonProperty
   private String billAddress2;
+  @JsonProperty
   private String billCity;
+  @JsonProperty
   private String billState;
+  @JsonProperty
   private String billZip;
+  @JsonProperty
   private String billCountry;
+  @JsonProperty
   private String courier;
+  @JsonProperty
   private BigDecimal totalPrice;
+  @JsonProperty
   private String billToFirstName;
+  @JsonProperty
   private String billToLastName;
+  @JsonProperty
   private String shipToFirstName;
+  @JsonProperty
   private String shipToLastName;
+  @JsonProperty
   private String creditCard;
+  @JsonProperty
   private String expiryDate;
+  @JsonProperty
   private String cardType;
+  @JsonProperty
   private String locale;
+  @JsonProperty
   private String status;
+  
   private List<LineItem> lineItems = new ArrayList<LineItem>();
 
   public int getOrderId() {

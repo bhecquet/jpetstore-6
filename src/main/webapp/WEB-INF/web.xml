@@ -63,6 +63,8 @@
     <servlet-name>StripesDispatcher</servlet-name>
     <url-pattern>*.action</url-pattern>
   </servlet-mapping>
+  
+  <!-- WebService with JAX-WS -->
   <listener>
     <listener-class>
 		com.sun.xml.ws.transport.http.servlet.WSServletContextListener
