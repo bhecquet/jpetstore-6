@@ -15,6 +15,7 @@
  */
 package org.mybatis.jpetstore.restservice;
 
+import java.net.URI;
 import java.util.List;
 
 import javax.ws.rs.GET;
@@ -22,8 +23,10 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.mybatis.jpetstore.domain.Category;
+import org.mybatis.jpetstore.domain.Item;
 import org.mybatis.jpetstore.domain.Product;
 import org.mybatis.jpetstore.service.CatalogService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -159,5 +162,65 @@ public class CatalogResources {
 		System.out.println("REST webservice : search for Product with" + keywords);
 				
 		return catalogService.searchProductList(keywords);
+	}
+	
+	
+	@GET
+	@Path("/getItemXml")
+    @Produces(MediaType.APPLICATION_XML)
+	public Item getItemXml(@QueryParam("tbItemId") String itemId){
+		
+		System.out.println("REST webservice : get Item #" + itemId);
+				
+		return catalogService.getItem(itemId);
+	}
+	
+	@GET
+	@Path("/getItemJson")
+    @Produces(MediaType.APPLICATION_JSON)
+	public Item getItemJson(@QueryParam("tbItemId") String itemId){
+		
+		System.out.println("REST webservice : get Item #" + itemId);
+				
+		return catalogService.getItem(itemId);
+	}
+	
+	
+	@GET
+	@Path("/getItemsXml")
+    @Produces(MediaType.APPLICATION_XML)
+	public List<Item> getItemsXml(@QueryParam("tbProductId") String productId){
+		
+		System.out.println("REST webservice : get Items from product #" + productId);
+				
+		return catalogService.getItemListByProduct(productId);
+	}
+	
+	@GET
+	@Path("/getItemsJson")
+    @Produces(MediaType.APPLICATION_JSON)
+	public List<Item> getItemsJson(@QueryParam("tbProductId") String productId){
+		
+		System.out.println("REST webservice : get Items from product #" + productId);
+				
+		return catalogService.getItemListByProduct(productId);
+	}
+	
+	@GET
+	@Path("/checkItem")
+	@Produces(MediaType.TEXT_HTML)
+	public Response checkItem(@QueryParam("tbItemId") String itemId){
+		
+		System.out.println("REST webservice : check availability of Item #" + itemId);
+				
+		String output;
+		if (catalogService.isItemInStock(itemId)) { 
+			output = "Item #" + itemId + " is in stock. <br/><br/> <a href='/jpetstore/rstest.html'>test more service</a>";
+		} else {
+			output = "Item #" + itemId + " is NOT in stock for the moment. <br/><br/> <a href='/jpetstore/rstest.html'>test more service</a>";
+		}
+	    URI location = URI.create("");
+	    
+	    return Response.created(location).entity(output).build();
 	}
 }

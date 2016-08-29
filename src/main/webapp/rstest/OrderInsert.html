@@ -1,0 +1,203 @@
+<!--
+
+       Copyright 2010-2016 the original author or authors.
+
+       Licensed under the Apache License, Version 2.0 (the "License");
+       you may not use this file except in compliance with the License.
+       You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+       Unless required by applicable law or agreed to in writing, software
+       distributed under the License is distributed on an "AS IS" BASIS,
+       WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+       See the License for the specific language governing permissions and
+       limitations under the License.
+
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <title>JPetStore REST web service</title>
+  <link rel="StyleSheet" href="../css/jpetstore.css" type="text/css" media="screen"/>
+</head>
+
+<body onerror="handleError()">
+<div id="Content">
+  <h2>Welcome to JPetStore 6 web service (REST)</h2>
+
+	<div id="debbugDiv" style="visibility: hidden; color: red;"><fieldset id="debbugField"></fieldset></div>
+	
+  	<h3>Test Order service : create Order</h3>
+  	<br/>
+  	
+  	<h3>User Information</h3>
+	<fieldset>
+		<table>
+			<tr>
+				<td><input id="username" type="text" name="tbUsername" placeholder="USERNAME"/></td>
+			</tr>
+			<tr>
+				<td><input id="password" type="password" name="tbPassword" placeholder="PASSWORD"/></td>
+			</tr>
+			<tr>
+				<td><button id="bjson" 
+	    					onclick="postOrderAccountJSON('/jpetstore/jpetstoreAccount/accounts/getAccount')">Get Account</button><br/>
+			</tr>
+		</table>
+	</fieldset>
+	
+	<h3>Select Item(s)</h3>
+	<fieldset id="selectItems" style="visibility:hidden">
+		
+		<table id="itemSelectionTable">
+			<tr>
+				<td id="itemSelected0">items selected</td>
+			</tr>
+		</table>
+		<button id="validateItemsBtn" 
+				style="visibility:hidden"
+				onclick="proceedPayement()">Proceed to payment</button><br/>
+		<div id="lineItems" style="visibility:hidden"></div>
+		<br/>
+		<select id="selectCategory" 
+				onchange="selectCategory();">
+			<option value="categoryId">-- select category --</option>
+		</select>
+		<select id="selectProduct" 
+				style="visibility:hidden"
+				onchange="selectProduct();">
+			<option value="productId">-- select product --</option>
+		</select>
+		<select id="selectItem"
+				style="visibility:hidden"
+				onchange="selectItem();">
+			<option value="itemId">-- select item --</option>
+		</select>
+		
+		<div id="selectedItemDescription"></div>
+		<div id="selectedItemCost"></div>
+		
+		<button id="validateItemBtn" 
+				style="visibility:hidden"
+				onclick="validateItem()">Add Item</button>
+	</fieldset>
+	
+	<h3>Payement Details</h3>
+	<fieldset id="payementDetails" style="visibility:hidden">
+		<input id="dummyCardInfo" type="checkbox" onchange="dummyCardInfo()"/> Set dummy card information.<br/>
+		<table>
+			<tr>
+				<td><input id="cardType" type="text" name="tbCardType" placeholder="CARD TYPE"/></td>
+			</tr>
+			<tr>
+				<td><input id="cardNumber" type="text" name="tbCreditCard" placeholder="CARD NUMBER"/></td>
+			</tr>
+			<tr>
+				<td><input id="expiryDate" type="text" name="tbExpiryDate" placeholder="EXPIRY DATE"/></td>
+			</tr>
+		</table>
+	</fieldset>
+	
+	<h3>Billing Address</h3>
+	<fieldset id="billingAddress" style="visibility:hidden">
+		<table>
+			<tr>
+				<td><input id="billToFirstName" type="text" name="tbBillToFirstName" placeholder="FIRSTNAME"/></td>
+			</tr>
+			<tr>
+				<td><input id="billToLastName" type="text" name="tbBillToLastName" placeholder="LASTNAME"/></td>
+			</tr>
+			<tr>
+				<td><input id="billAddress1" type="text" name="tbBillAddress1" placeholder="ADDRESS 1"/></td>
+			</tr>
+			<tr>
+				<td><input id="billAddress2" type="text" name="tbBillAddress2" placeholder="ADDRESS 2"/></td>
+			</tr>
+			<tr>
+				<td><input id="billZip" type="text" name="tbBillZip" placeholder="ZIP CODE"/></td>
+			</tr>
+			<tr>
+				<td><input id="billCity" type="text" name="tbBillCity" placeholder="CITY"/></td>
+			</tr>
+			<tr>
+				<td><input id="billState" type="text" name="tbBillState" placeholder="STATE"/></td>
+			</tr>
+			<tr>
+				<td><input id="billCountry" type="text" name="tbBillCountry" placeholder="COUNTRY"/></td>
+			</tr>
+		</table>
+	</fieldset>
+	
+	<h3>Shipping Address</h3>
+	
+	<fieldset id="shippingAddress" style="visibility:hidden">
+		<input id="sameShippingAddress" type="checkbox" checked="checked" onchange="addressCheckbox()"/> Same address as billing address.<br/>
+		<table>
+			<tr>
+				<td><input id="shipToFirstName" type="text" name="tbShipToFirstName" placeholder="FIRSTNAME"/></td>
+			</tr>
+			<tr>
+				<td><input id="shipToLastName" type="text" name="tbShipToLastName" placeholder="LASTNAME"/></td>
+			</tr>
+			<tr>
+				<td><input id="shipAddress1" type="text" name="tbShipAddress1" placeholder="ADDRESS 1"/></td>
+			</tr>
+			<tr>
+				<td><input id="shipAddress2" type="text" name="tbShipAddress2" placeholder="ADDRESS 2"/></td>
+			</tr>
+			<tr>
+				<td><input id="shipZip" type="text" name="tbShipZip" placeholder="ZIP CODE"/></td>
+			</tr>
+			<tr>
+				<td><input id="shipCity" type="text" name="tbShipCity" placeholder="CITY"/></td>
+			</tr>
+			<tr>
+				<td><input id="shipState" type="text" name="tbShipState" placeholder="STATE"/></td>
+			</tr>
+			<tr>
+				<td><input id="shipCountry" type="text" name="tbShipCountry" placeholder="COUNTRY"/></td>
+			</tr>
+		</table>
+	</fieldset>
+	
+    <button id="submitBtn" 
+    		style="visibility:hidden"
+    		onclick="postOrder('/jpetstore/jpetstoreOrder/orders/insertOrder')">Create Order</button><br/>
+    <br/>
+<!--     Response to :  --><span id="quest" style="visibility:hidden">...</span>
+	<fieldset id="orderResp" style="visibility:hidden">
+     	<br/>
+     	<div id="niceResp">...</div>
+	</fieldset>
+	<fieldset style="visibility:hidden">
+     	<legend>(Plain)</legend>
+     	<br/>
+		<div id="resp">...</div>
+	</fieldset>
+     <br/>
+     <a href="/jpetstore/rstest.html">test rs service page</a>
+
+</div>
+
+<!-- scripts -->
+<script src="../js/jsTools.js"></script>
+<script src="../js/handleUrl.js"></script>
+<script src="../js/printJsonXml.js"></script>
+<script src="../js/handleAjaxMulti.js"></script>
+
+<script src="../js/categoriesService.js"></script>
+
+<script src="../js/accountService.js"></script>
+
+<script src="../js/productsService.js"></script>
+<script src="../js/itemsService.js"></script>
+<script src="../js/itemService.js"></script>
+
+<script src="../js/orderInsertService.js"></script>
+
+</body>
+</html>

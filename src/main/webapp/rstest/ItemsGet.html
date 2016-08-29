@@ -31,13 +31,13 @@
 	
 	<div id="debbugDiv" style="visibility: hidden; color: red;"><fieldset id="debbugField"></fieldset></div>
 	
-     <h3>Test Catalog service : Get Product</h3>
+     <h3>Test Catalog service : Get Items</h3>
   	<br/>
-    <input id="t1" type="text" name="tbProductId" placeholder="PRODUCT ID"/>
+    <input id="productId" type="text" name="tbProductId" placeholder="PRODUCT ID"/>
     <button id="bxml" 
-    		onclick="getXML('/jpetstore/jpetstoreCatalog/catalog/getProduct')">Get Product (XML)</button>
+    		onclick="getItemsXML('/jpetstore/jpetstoreCatalog/catalog/getItems')">Get Items (XML)</button>
     <button id="bjson" 
-    		onclick="getJSON('/jpetstore/jpetstoreCatalog/catalog/getProduct')">Get Product (JSON)</button><br/>
+    		onclick="getItemsJSON('/jpetstore/jpetstoreCatalog/catalog/getItems')">Get Items (JSON)</button><br/>
      <br/>
 	Response to : <span id="quest">...</span>
      <fieldset>
@@ -55,9 +55,11 @@
 
 </div>
 
-<script src="../js/handleError.js"></script>
+<script src="../js/jsTools.js"></script>
 <script src="../js/handleAjax.js"></script>
-<script src="../js/productService.js"></script>
+<script src="../js/handleUrl.js"></script>
+<script src="../js/printJsonXml.js"></script>
+<script src="../js/itemsService.js"></script>
 
 </body>
 </html>

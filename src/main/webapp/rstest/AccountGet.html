@@ -1,0 +1,66 @@
+<!--
+
+       Copyright 2010-2016 the original author or authors.
+
+       Licensed under the Apache License, Version 2.0 (the "License");
+       you may not use this file except in compliance with the License.
+       You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+       Unless required by applicable law or agreed to in writing, software
+       distributed under the License is distributed on an "AS IS" BASIS,
+       WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+       See the License for the specific language governing permissions and
+       limitations under the License.
+
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <title>JPetStore REST web service</title>
+  <link rel="StyleSheet" href="../css/jpetstore.css" type="text/css" media="screen"/>
+</head>
+
+<body onerror="handleError()">
+<div id="Content">
+  <h2>Welcome to JPetStore 6 web service (REST)</h2>
+	
+	<div id="debbugDiv" style="visibility: hidden; color: red;"><fieldset id="debbugField"></fieldset></div>
+	
+  	<h3>Test Account service : Get Account</h3>
+  	<br/>
+    <input id="username" type="text" name="tbUsername" placeholder="USERNAME"/>
+    <input id="password" type="password" name="tbPassword" placeholder="PASSWORD"/>
+    <button id="bxml" 
+    		onclick="postAccountXML('/jpetstore/jpetstoreAccount/accounts/getAccount')">Get Account (XML)</button>
+	<button id="bjson" 
+    		onclick="postAccountJSON('/jpetstore/jpetstoreAccount/accounts/getAccount')">Get Account (JSON)</button><br/>
+    <br/>
+     Response to : <span id="quest">...</span>
+     <fieldset>
+     	<legend>(Nice)</legend>
+     	<br/>
+     	<div id="niceResp">...</div>
+	</fieldset>
+	<fieldset>
+     	<legend>(Plain)</legend>
+     	<br/>
+		<div id="resp">...</div>
+	</fieldset>
+	<br/>
+     <a href="/jpetstore/rstest.html">test rs service page</a>
+
+</div>
+
+<script src="../js/jsTools.js"></script>
+<script src="../js/handleAjax.js"></script>
+<script src="../js/handleUrl.js"></script>
+<script src="../js/printJsonXml.js"></script>
+<script src="../js/accountService.js"></script>
+
+</body>
+</html>

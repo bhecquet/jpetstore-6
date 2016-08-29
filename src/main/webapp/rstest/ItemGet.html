@@ -31,16 +31,15 @@
 	
 	<div id="debbugDiv" style="visibility: hidden; color: red;"><fieldset id="debbugField"></fieldset></div>
 	
-  	<h3>Test Account service : Get Account</h3>
+  	<h3>Test Catalog service : Get Item</h3>
   	<br/>
-    <input id="t1" type="text" name="tbUsername" placeholder="USERNAME"/>
-    <input id="t2" type="password" name="tbPassword" placeholder="PASSWORD"/>
+    <input id="itemId" type="text" name="tbItemId" placeholder="ITEM ID"/>
     <button id="bxml" 
-    		onclick="postXML('/jpetstore/jpetstoreAccount/accounts/getAccount')">Get Account (XML)</button>
-	<button id="bjson" 
-    		onclick="postJSON('/jpetstore/jpetstoreAccount/accounts/getAccount')">Get Account (JSON)</button><br/>
-    <br/>
-     Response to : <span id="quest">...</span>
+    		onclick="getItemXML('/jpetstore/jpetstoreCatalog/catalog/getItem')">Get Item (XML)</button>
+    <button id="bjson" 
+    		onclick="getItemJSON('/jpetstore/jpetstoreCatalog/catalog/getItem')">Get Item (JSON)</button><br/>
+     <br/>
+	Response to : <span id="quest">...</span>
      <fieldset>
      	<legend>(Nice)</legend>
      	<br/>
@@ -56,9 +55,11 @@
 
 </div>
 
-<script src="../js/handleError.js"></script>
+<script src="../js/jsTools.js"></script>
 <script src="../js/handleAjax.js"></script>
-<script src="../js/accountService.js"></script>
+<script src="../js/handleUrl.js"></script>
+<script src="../js/printJsonXml.js"></script>
+<script src="../js/itemService.js"></script>
 
 </body>
 </html>

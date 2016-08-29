@@ -13,75 +13,83 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-function getRelativeUrl(shortUrl){
-		
-	var location = window.location.href
-	return location.split("/jpetstore")[0] + shortUrl; 
+function getCategoryXML(shortUrl){
+	var options = ["Xml", "resp"];
+	ajaxRequest("get", getRelativeUrl(shortUrl), options);
 }
 
-function getXML(shortUrl){
-			
-	ajaxAnswer("get", getRelativeUrl(shortUrl), "Xml", "resp");
-}
-
-function getJSON(shortUrl){
-	ajaxAnswer("get", getRelativeUrl(shortUrl), "Json", "resp");
+function getCategoryJSON(shortUrl){
+	var options = ["Json", "resp"];
+	ajaxRequest("get", getRelativeUrl(shortUrl), options);
 }
 
 
-function sendGetRequest(xhttp, url) {
-	// header: specifies the header name
-	// value: specifies the header value
-// 		setRequestHeader(header, value)
-		
-	var pId = document.getElementById("t1").value;
-	document.getElementById("quest").textContent = "get category id# " + pId;
+function sendRequest(xhttp, method, url, options) {
 	
-	var parameters = "tbCategoryId="+ pId;
+	var mode = options[0];
 	
-	//  asynchronous always true
-	xhttp.open("GET", url + "?"+ parameters, true);
-	xhttp.send();
+	if (mode != null && mode != "undefined") {
+		sendGetRequestCategory(xhttp, url + mode);
+	} else {
+		sendGetRequestCategory(xhttp, url);
+	}
+}
+
+function sendGetRequestCategory(xhttp, url) {
+		
+	var pCategoryId = document.getElementById("categoryId").value;
+	document.getElementById("quest").textContent = "get category id# " + pCategoryId;
+	
+	var parameters = "tbCategoryId="+ pCategoryId;
+	
+	sendGetRequest(xhttp, url, parameters);
 }
 
 
-function processXmlAnswer(xhttp) {
+function processAjaxAnswer(xhttp, method, url, options) {
+	
+	var mode = options[0];
+	var respContainer = options[1];
+	
+	document.getElementById(respContainer).textContent = xhttp.responseText;
+	
+	if (mode == "Xml") {
+		processCategoryXmlAnswer(xhttp);
+	}
+	if (mode == "Json") {
+		processCategoryJsonAnswer(xhttp);
+	}
+}
+
+function processCategoryXmlAnswer(xhttp) {
 	
 	var xmlDoc = xhttp.responseXML;
 	
 	var table="<table>"
 		 	+ "<tr><td>Category</td></tr>";
 	var root = xmlDoc.getElementsByTagName("category");
-	//debbugError(root[0].childNodes.length);
+	
 	if (root[0].childNodes.length > 0) {
-		table+= getXmlTableRow("description", root);
-		table+= getXmlTableRow("categoryId", root);
-		table+= getXmlTableRow("name", root);
+		table+= printXmlTableRow("description", root, 0);
+		table+= printXmlTableRow("categoryId", root, 0);
+		table+= printXmlTableRow("name", root, 0);
     }
 	table+="</table>";
 	document.getElementById("niceResp").innerHTML = table;
 }
 
-function getXmlTableRow(item, rootElem) {
-	return "<tr><td>" + item + "</td><td>" + rootElem[0].getElementsByTagName(item)[0].childNodes[0].nodeValue + "</td></tr>"
-}
 
-
-function processJsonAnswer(xhttp) {
+function processCategoryJsonAnswer(xhttp) {
 	
 	var obj = JSON.parse(xhttp.responseText);	
 	
 	var table="<table>"
 	 		+ "<tr><td>Category</td></tr>";
 	
-	table+= getJsonTableRow("description", obj.description);
-	table+= getJsonTableRow("categoryId", obj.categoryId);
-	table+= getJsonTableRow("name", obj.name);
+	table+= printJsonTableRow("description", obj.description);
+	table+= printJsonTableRow("categoryId", obj.categoryId);
+	table+= printJsonTableRow("name", obj.name);
 	
 	table+="</table>";
 	document.getElementById("niceResp").innerHTML = table;
-}
-
-function getJsonTableRow(item, value) {
-	return "<tr><td>" + item + "</td><td>" + value + "</td></tr>"
 }

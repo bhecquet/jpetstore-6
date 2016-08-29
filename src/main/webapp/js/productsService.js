@@ -13,54 +13,56 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-function getRelativeUrl(shortUrl){
+function getProductsXML(shortUrl){
+	var options = ["Xml", "resp"];
+	ajaxRequest("get", getRelativeUrl(shortUrl), options);
+}
+
+function getProductsJSON(shortUrl){
+	var options = ["Json", "resp"];
+	ajaxRequest("get", getRelativeUrl(shortUrl), options);
+}
+
+
+function sendRequest(xhttp, method, url, options) {
+	
+	var mode = options[0];
+	
+	var pCategoryId = document.getElementById("categoryId").value;
+	
+	if (mode != null && mode != "undefined") {
+		sendGetRequestProducts(xhttp, url + mode, pCategoryId);
+	} else {
+		sendGetRequestProducts(xhttp, url, categoryId);
+	}
+}
+
+function sendGetRequestProducts(xhttp, url, pCategoryId) {
 		
-	var location = window.location.href
-	return location.split("/jpetstore")[0] + shortUrl; 
-}
-
-function getXML(shortUrl){
-			
-	ajaxAnswer("get", getRelativeUrl(shortUrl), "Xml", "resp");
-}
-
-function getJSON(shortUrl){
-	ajaxAnswer("get", getRelativeUrl(shortUrl), "Json", "resp");
-}
-
-
-function sendGetRequest(xhttp, url) {
-	// header: specifies the header name
-	// value: specifies the header value
-// 		setRequestHeader(header, value)
-		
-	var pId = document.getElementById("t1").value;
-	document.getElementById("quest").textContent = "get products from category id# " + pId;
+	document.getElementById("quest").textContent = "get products from category id# " + pCategoryId;
 	
-	var parameters = "tbCategoryId="+ pId;
+	var parameters = "tbCategoryId="+ pCategoryId;
 	
-	//  asynchronous always true
-	xhttp.open("GET", url + "?"+ parameters, true);
-	xhttp.send();
-}
-
-function sendSearchRequest(xhttp, url) {
-	// header: specifies the header name
-	// value: specifies the header value
-// 		setRequestHeader(header, value)
-		
-	var keywords = document.getElementById("t1").value;
-	document.getElementById("quest").textContent = "get products with " + keywords;
-	
-	var parameters = "tbKeywords="+ keywords;
-	
-	//  asynchronous always true
-	xhttp.open("GET", url + "?"+ parameters, true);
-	xhttp.send();
+	sendGetRequest(xhttp, url, parameters);
 }
 
 
-function processXmlAnswer(xhttp) {
+function processAjaxAnswer(xhttp, method, url, options) {
+	
+	var mode = options[0];
+	var respContainer = options[1];
+	
+	document.getElementById(respContainer).textContent = xhttp.responseText;
+	
+	if (mode == "Xml") {
+		processProductsXmlAnswer(xhttp);
+	}
+	if (mode == "Json") {
+		processProductsJsonAnswer(xhttp);
+	}
+}
+
+function processProductsXmlAnswer(xhttp) {
 	
 	var xmlDoc = xhttp.responseXML;
 	
@@ -68,24 +70,20 @@ function processXmlAnswer(xhttp) {
 		 	+ "<tr><td>Products</td></tr>";
 	var root = xmlDoc.getElementsByTagName("product");
 	
-	if (root.length > 0) {
-		for (i=0; i < root.length; i++) {
-			table+= getXmlTableRow("description", root, i);
-			table+= getXmlTableRow("productId", root, i);
-			table+= getXmlTableRow("name", root, i);
-			table+= getXmlTableRow("categoryId", root, i);
-		}
-    }
+	
+	for (i=0; i < root.length; i++) {
+		table+= printXmlTableRow("description", root, i);
+		table+= printXmlTableRow("productId", root, i);
+		table+= printXmlTableRow("name", root, i);
+		table+= printXmlTableRow("categoryId", root, i);
+	}
+    
 	table+="</table>";
 	document.getElementById("niceResp").innerHTML = table;
 }
 
-function getXmlTableRow(item, rootElem, index) {
-	return "<tr><td>" + item + "</td><td>" + rootElem[index].getElementsByTagName(item)[0].childNodes[0].nodeValue + "</td></tr>"
-}
 
-
-function processJsonAnswer(xhttp) {
+function processProductsJsonAnswer(xhttp) {
 	
 	var obj = JSON.parse(xhttp.responseText);	
 	
@@ -93,15 +91,11 @@ function processJsonAnswer(xhttp) {
 	 		+ "<tr><td>Products</td></tr>";
 
 	for (i=0; i < obj.length; i++) {
-		table+= getJsonTableRow("description", obj[i].description);
-		table+= getJsonTableRow("productId", obj[i].productId);
-		table+= getJsonTableRow("name", obj[i].name);
-		table+= getJsonTableRow("categoryId", obj[i].categoryId);
+		table+= printJsonTableRow("description", obj[i].description);
+		table+= printJsonTableRow("productId", obj[i].productId);
+		table+= printJsonTableRow("name", obj[i].name);
+		table+= printJsonTableRow("categoryId", obj[i].categoryId);
 	}
 	table+="</table>";
 	document.getElementById("niceResp").innerHTML = table;
-}
-
-function getJsonTableRow(item, value) {
-	return "<tr><td>" + item + "</td><td>" + value + "</td></tr>"
 }

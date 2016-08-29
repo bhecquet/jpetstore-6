@@ -18,20 +18,33 @@ package org.mybatis.jpetstore.domain;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * @author Eduardo Macarron
  *
  */
+@XmlRootElement(name="lineItem") // JAXB (xml) and JSON 
 public class LineItem implements Serializable {
 
   private static final long serialVersionUID = 6804536240033522156L;
 
+  @JsonProperty
   private int orderId;
+  @JsonProperty
   private int lineNumber;
+  @JsonProperty
   private int quantity;
+  @JsonProperty
   private String itemId;
+  @JsonProperty
   private BigDecimal unitPrice;
+  @JsonProperty
   private Item item;
+  @JsonProperty
   private BigDecimal total;
 
   public LineItem() {
@@ -49,6 +62,7 @@ public class LineItem implements Serializable {
     return orderId;
   }
 
+  @XmlElement
   public void setOrderId(int orderId) {
     this.orderId = orderId;
   }
@@ -57,6 +71,7 @@ public class LineItem implements Serializable {
     return lineNumber;
   }
 
+  @XmlElement
   public void setLineNumber(int lineNumber) {
     this.lineNumber = lineNumber;
   }
@@ -65,6 +80,7 @@ public class LineItem implements Serializable {
     return itemId;
   }
 
+  @XmlElement
   public void setItemId(String itemId) {
     this.itemId = itemId;
   }
@@ -73,6 +89,7 @@ public class LineItem implements Serializable {
     return unitPrice;
   }
 
+  @XmlElement
   public void setUnitPrice(BigDecimal unitprice) {
     this.unitPrice = unitprice;
   }
@@ -85,6 +102,7 @@ public class LineItem implements Serializable {
     return item;
   }
 
+  @XmlElement
   public void setItem(Item item) {
     this.item = item;
     calculateTotal();
@@ -94,6 +112,7 @@ public class LineItem implements Serializable {
     return quantity;
   }
 
+  @XmlElement
   public void setQuantity(int quantity) {
     this.quantity = quantity;
     calculateTotal();

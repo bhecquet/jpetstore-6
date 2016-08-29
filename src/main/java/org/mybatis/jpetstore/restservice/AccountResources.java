@@ -46,9 +46,8 @@ public class AccountResources {
 							  @FormParam("tbPassword") String password) {
 		
 		System.out.println("REST webservice : getAccount of " + username);
-		Account acc = accountService.getSecureAccount(username, password);
-		acc.setFirstName("PROVIDER OKAY");
-		return acc;
+		
+		return accountService.getSecureAccount(username, password);
 	}
 	@POST
 	@Path("/getAccountJson")
@@ -89,10 +88,10 @@ public class AccountResources {
 		if (account == null) { 
 			account = new Account(username, password, email, firstName, lastName, "", address1, address2, city, state, zip, country, phone, favouriteCategoryId, languagePreference, listOption, bannerOption, "");
 			accountService.insertAccount(account);
-		    output = "Account successfully created ! <br/> <a href='/jpetstore/rstest.html'>test more service</a>";
+		    output = "Account " + username + " successfully created ! <br/><br/> <a href='/jpetstore/rstest.html'>test more service</a>";
 		} else {
-			output = "Account " + username + " already exists. <br/>"
-					+ "go to <a href='/jpetstore/rstest/UpdateAccount.html'>update</a><br/>"
+			output = "Account " + username + " already exists. <br/><br/>"
+					+ "go to <a href='/jpetstore/rstest/UpdateAccount.html'>update</a><br/><br/>"
 					+ "<a href='/jpetstore/rstest.html'>test more service</a>";
 		}
 	    URI location = URI.create("");
@@ -143,9 +142,9 @@ public class AccountResources {
 			
 			accountService.updateAccount(account);
 				    
-			output = "Account successfully modified ! <br/> <a href='/jpetstore/rstest.html'>test more service</a>";
+			output = "Account " + username + " successfully modified ! <br/><br/> <a href='/jpetstore/rstest.html'>test more service</a>";
 		} else {
-			output = "Account of " + username + " could not be found. <br/> <a href='/jpetstore/rstest.html'>test more service</a>";
+			output = "Account of " + username + " could not be found. <br/><br/> <a href='/jpetstore/rstest.html'>test more service</a>";
 		}
 	    URI location = URI.create("");
 	    

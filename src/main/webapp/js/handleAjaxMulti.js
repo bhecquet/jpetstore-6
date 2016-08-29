@@ -23,7 +23,7 @@ function createRequest() {
 	}
 }
 
-function ajaxRequest(method, url, options) { // , mode, respContainer) {
+function ajaxMultiRequest(method, url, options) { // , mode, respContainer) {
 		
 	// create the request
 	var xhttp = createRequest();
@@ -36,12 +36,12 @@ function ajaxRequest(method, url, options) { // , mode, respContainer) {
     	if (xhttp.readyState == 4 && (xhttp.status == 200 || xhttp.status == 201)) {
     		
     		// deal with the gotten response (see example below)
-    		processAjaxAnswer(xhttp, method, url, options);
+    		processAjaxMultiAnswer(xhttp, method, url, options);
    		}
     };
   
   // send the request (see example below)
-  sendRequest(xhttp, method, url, options); 
+  sendMultiRequest(xhttp, method, url, options); 
   
 } 
 

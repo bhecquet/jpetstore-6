@@ -28,16 +28,38 @@
 <body onerror="handleError()">
 <div id="Content">
   <h2>Welcome to JPetStore 6 web service (REST)</h2>
-
-  	<h3>Test Order service : Get Orders</h3>
+	
+	<div id="debbugDiv" style="visibility: hidden; color: red;"><fieldset id="debbugField"></fieldset></div>
+	
+     <h3>Test Catalog service : Get Product</h3>
   	<br/>
-	<form method="get" action="http://localhost:8080/jpetstore/jpetstoreOrder/orders/getOrders">
-         <input type="text" name="tbUsername" placeholder="USERNAME"/>
-         <input type="submit" value="Get Orders"/>
-     </form>
+    <input id="productId" type="text" name="tbProductId" placeholder="PRODUCT ID"/>
+    <button id="bxml" 
+    		onclick="getProductXML('/jpetstore/jpetstoreCatalog/catalog/getProduct')">Get Product (XML)</button>
+    <button id="bjson" 
+    		onclick="getProductJSON('/jpetstore/jpetstoreCatalog/catalog/getProduct')">Get Product (JSON)</button><br/>
      <br/>
+	Response to : <span id="quest">...</span>
+     <fieldset>
+     	<legend>(Nice)</legend>
+     	<br/>
+     	<div id="niceResp">...</div>
+	</fieldset>
+	<fieldset>
+     	<legend>(Plain)</legend>
+     	<br/>
+		<div id="resp">...</div>
+	</fieldset>
+	<br/>
      <a href="/jpetstore/rstest.html">test rs service page</a>
 
 </div>
+
+<script src="../js/jsTools.js"></script>
+<script src="../js/handleAjax.js"></script>
+<script src="../js/handleUrl.js"></script>
+<script src="../js/printJsonXml.js"></script>
+<script src="../js/productService.js"></script>
+
 </body>
 </html>

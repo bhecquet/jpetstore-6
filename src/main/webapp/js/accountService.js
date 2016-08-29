@@ -13,102 +13,109 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-function getRelativeUrl(shortUrl){
+function postAccountXML(shortUrl){
+	var options = ["Xml", "resp"];
+	ajaxRequest("post", getRelativeUrl(shortUrl), options);
+}
+
+function postAccountJSON(shortUrl){
+	var options = ["Json", "resp"];
+	ajaxRequest("post", getRelativeUrl(shortUrl), options);
+}
+
+
+function sendRequest(xhttp, method, url, options) {
+	
+	var mode = options[0];
+	
+	if (mode != null && mode != "undefined") {
+		sendPostRequestAccount(xhttp, url + mode);
+	} else {
+		sendPostRequestAccount(xhttp, url);
+	}
+}
+
+function sendPostRequestAccount(xhttp, url) {
 		
-	var location = window.location.href
-	return location.split("/jpetstore")[0] + shortUrl; 
-}
-
-function postXML(shortUrl){
-	ajaxAnswer("post", getRelativeUrl(shortUrl), "Xml", "resp");
-}
-
-function postJSON(shortUrl){
-	ajaxAnswer("post", getRelativeUrl(shortUrl), "Json", "resp");
-}
-
-function sendPostRequest(xhttp, url) {
-	// header: specifies the header name
-	// value: specifies the header value
-// 	setRequestHeader(header, value)
-		
-	var pUsername = document.getElementById("t1").value;
-	var pPassword = document.getElementById("t2").value;
+	var pUsername = document.getElementById("username").value;
+	var pPassword = document.getElementById("password").value;
 	document.getElementById("quest").textContent = "get account of " + pUsername;
 	
 	var parameters = "tbUsername="+ pUsername + "&tbPassword=" + pPassword;
 	
-	xhttp.open("POST", url, true);
-	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	xhttp.send(parameters);
+	sendPostRequest(xhttp, url, parameters);
 }
 
 
-function processXmlAnswer(xhttp) {
+function processAjaxAnswer(xhttp, method, url, options) {
+	
+	var mode = options[0];
+	var respContainer = options[1];
+	
+	document.getElementById(respContainer).textContent = xhttp.responseText;
+	
+	if (mode == "Xml") {
+		processAccountXmlAnswer(xhttp);
+	}
+	if (mode == "Json") {
+		processAccountJsonAnswer(xhttp);
+	}
+}
+
+function processAccountXmlAnswer(xhttp) {
 	
 	var xmlDoc = xhttp.responseXML;
 	
 	var table="<table>"
-		 	+ "<tr><td>Product</td></tr>";
+		 	+ "<tr><td>Account</td></tr>";
 	var root = xmlDoc.getElementsByTagName("account");
-	//debbugError(root[0].childNodes.length);
-	if (root[0].childNodes.length > 0) {
-		table+= getXmlTableRow("username", root);
-		table+= getXmlTableRow("firstName", root);
-		table+= getXmlTableRow("lastName", root);
-		table+= getXmlTableRow("email", root);
-		table+= getXmlTableRow("phone", root);
-    	table+= getXmlTableRow("address1", root);
-    	table+= getXmlTableRow("address2", root);
-    	table+= getXmlTableRow("city", root);
-    	table+= getXmlTableRow("state", root);
-    	table+= getXmlTableRow("zip", root);
-    	table+= getXmlTableRow("country", root);
-    	table+= getXmlTableRow("languagePreference", root);
-    	table+= getXmlTableRow("favouriteCategoryId", root);
-    	table+= getXmlTableRow("listOption", root);
-    	table+= getXmlTableRow("bannerOption", root);
-    	table+= getXmlTableRow("bannerName", root);
-    	table+= getXmlTableRow("status", root);
-    }
+	
+	table+= printXmlTableRow("username", root, 0);
+	table+= printXmlTableRow("firstName", root, 0);
+	table+= printXmlTableRow("lastName", root, 0);
+	table+= printXmlTableRow("email", root, 0);
+	table+= printXmlTableRow("phone", root, 0);
+	table+= printXmlTableRow("address1", root, 0);
+	table+= printXmlTableRow("address2", root, 0);
+	table+= printXmlTableRow("city", root, 0);
+	table+= printXmlTableRow("state", root, 0);
+	table+= printXmlTableRow("zip", root, 0);
+	table+= printXmlTableRow("country", root, 0);
+	table+= printXmlTableRow("languagePreference", root, 0);
+	table+= printXmlTableRow("favouriteCategoryId", root, 0);
+	table+= printXmlTableRow("listOption", root, 0);
+	table+= printXmlTableRow("bannerOption", root, 0);
+	table+= printXmlTableRow("bannerName", root, 0);
+    
 	table+="</table>";
 	document.getElementById("niceResp").innerHTML = table;
 }
 
-function getXmlTableRow(item, rootElem) {
-	return "<tr><td>" + item + "</td><td>" + rootElem[0].getElementsByTagName(item)[0].childNodes[0].nodeValue + "</td></tr>"
-}
 
-
-function processJsonAnswer(xhttp) {
+function processAccountJsonAnswer(xhttp) {
 	
 	var obj = JSON.parse(xhttp.responseText);	
 	
 	var table="<table>"
-	 		+ "<tr><td>Product</td></tr>";
+	 		+ "<tr><td>Account</td></tr>";
 	
-	table+= getJsonTableRow("username", obj.username);
-	table+= getJsonTableRow("firstName", obj.firstName);
-	table+= getJsonTableRow("lastName", obj.lastName);
-	table+= getJsonTableRow("email", obj.email);
-	table+= getJsonTableRow("phone", obj.phone);
-	table+= getJsonTableRow("address1", obj.address1);
-	table+= getJsonTableRow("address2", obj.address2);
-	table+= getJsonTableRow("city", obj.city);
-	table+= getJsonTableRow("state", obj.state);
-	table+= getJsonTableRow("zip", obj.zip);
-	table+= getJsonTableRow("country", obj.country);
-	table+= getJsonTableRow("languagePreference", obj.languagePreference);
-	table+= getJsonTableRow("favouriteCategoryId", obj.favouriteCategoryId);
-	table+= getJsonTableRow("listOption", obj.listOption);
-	table+= getJsonTableRow("bannerOption", obj.bannerOption);
-	table+= getJsonTableRow("bannerName", obj.bannerName);
-	table+= getJsonTableRow("status", obj.status);
+	table+= printJsonTableRow("username", obj.username);
+	table+= printJsonTableRow("firstName", obj.firstName);
+	table+= printJsonTableRow("lastName", obj.lastName);
+	table+= printJsonTableRow("email", obj.email);
+	table+= printJsonTableRow("phone", obj.phone);
+	table+= printJsonTableRow("address1", obj.address1);
+	table+= printJsonTableRow("address2", obj.address2);
+	table+= printJsonTableRow("city", obj.city);
+	table+= printJsonTableRow("state", obj.state);
+	table+= printJsonTableRow("zip", obj.zip);
+	table+= printJsonTableRow("country", obj.country);
+	table+= printJsonTableRow("languagePreference", obj.languagePreference);
+	table+= printJsonTableRow("favouriteCategoryId", obj.favouriteCategoryId);
+	table+= printJsonTableRow("listOption", obj.listOption);
+	table+= printJsonTableRow("bannerOption", obj.bannerOption);
+	table+= printJsonTableRow("bannerName", obj.bannerName);
 	
 	table+="</table>";
 	document.getElementById("niceResp").innerHTML = table;
-}
-
-function getJsonTableRow(item, value) {
-	return "<tr><td>" + item + "</td><td>" + value + "</td></tr>"
 }

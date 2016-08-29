@@ -13,12 +13,12 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-function getProductXML(shortUrl){
+function searchProductsXML(shortUrl){
 	var options = ["Xml", "resp"];
 	ajaxRequest("get", getRelativeUrl(shortUrl), options);
 }
 
-function getProductJSON(shortUrl){
+function searchProductsJSON(shortUrl){
 	var options = ["Json", "resp"];
 	ajaxRequest("get", getRelativeUrl(shortUrl), options);
 }
@@ -29,18 +29,18 @@ function sendRequest(xhttp, method, url, options) {
 	var mode = options[0];
 	
 	if (mode != null && mode != "undefined") {
-		sendGetRequestProduct(xhttp, url + mode);
+		sendGetRequestSearchProducts(xhttp, url + mode);
 	} else {
-		sendGetRequestProduct(xhttp, url);
+		sendGetRequestSearchProducts(xhttp, url);
 	}
 }
 
-function sendGetRequestProduct(xhttp, url) {
+function sendGetRequestSearchProducts(xhttp, url) {
 		
-	var pProductId = document.getElementById("productId").value;
-	document.getElementById("quest").textContent = "get product id# " + pProductId;
+	var pKeywords = document.getElementById("keywords").value;
+	document.getElementById("quest").textContent = "get products with " + pKeywords;
 	
-	var parameters = "tbProductId="+ pProductId;
+	var parameters = "tbKeywords="+ pKeywords;
 	
 	sendGetRequest(xhttp, url, parameters);
 }
@@ -54,43 +54,46 @@ function processAjaxAnswer(xhttp, method, url, options) {
 	document.getElementById(respContainer).textContent = xhttp.responseText;
 	
 	if (mode == "Xml") {
-		processProductXmlAnswer(xhttp);
+		processProductsXmlAnswer(xhttp);
 	}
 	if (mode == "Json") {
-		processProductJsonAnswer(xhttp);
+		processProductsJsonAnswer(xhttp);
 	}
 }
 
-function processProductXmlAnswer(xhttp) {
+function processProductsXmlAnswer(xhttp) {
 	
 	var xmlDoc = xhttp.responseXML;
 	
 	var table="<table>"
-		 	+ "<tr><td>Product</td></tr>";
+		 	+ "<tr><td>Products</td></tr>";
 	var root = xmlDoc.getElementsByTagName("product");
-	
-	table+= printXmlTableRow("description", root, 0);
-	table+= printXmlTableRow("productId", root, 0);
-	table+= printXmlTableRow("name", root, 0);
-	table+= printXmlTableRow("categoryId", root, 0);
+
+	for (i=0; i < root.length; i++) {
+		table+= printXmlTableRow("description", root, i);
+		table+= printXmlTableRow("productId", root, i);
+		table+= printXmlTableRow("name", root, i);
+		table+= printXmlTableRow("categoryId", root, i);
+	}
     
 	table+="</table>";
 	document.getElementById("niceResp").innerHTML = table;
 }
 
 
-function processProductJsonAnswer(xhttp) {
+function processProductsJsonAnswer(xhttp) {
 	
 	var obj = JSON.parse(xhttp.responseText);	
 	
 	var table="<table>"
-	 		+ "<tr><td>Product</td></tr>";
-	
-	table+= printJsonTableRow("description", obj.description);
-	table+= printJsonTableRow("productId", obj.productId);
-	table+= printJsonTableRow("name", obj.name);
-	table+= printJsonTableRow("categoryId", obj.categoryId);
-	
+	 		+ "<tr><td>Products</td></tr>";
+
+	for (i=0; i < obj.length; i++) {
+		table+= printJsonTableRow("description", obj[i].description);
+		table+= printJsonTableRow("productId", obj[i].productId);
+		table+= printJsonTableRow("name", obj[i].name);
+		table+= printJsonTableRow("categoryId", obj[i].categoryId);
+	}
 	table+="</table>";
 	document.getElementById("niceResp").innerHTML = table;
 }

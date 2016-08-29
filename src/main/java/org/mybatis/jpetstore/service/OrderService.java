@@ -53,7 +53,7 @@ public class OrderService {
 
   @WebMethod
   @Transactional
-  public void insertOrder(Order order) {
+  public int insertOrder(Order order) {
     order.setOrderId(getNextId("ordernum"));
     for (int i = 0; i < order.getLineItems().size(); i++) {
       LineItem lineItem = (LineItem) order.getLineItems().get(i);
@@ -72,6 +72,8 @@ public class OrderService {
       lineItem.setOrderId(order.getOrderId());
       lineItemMapper.insertLineItem(lineItem);
     }
+    
+    return order.getOrderId();
   }
 
   @WebMethod

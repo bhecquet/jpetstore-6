@@ -31,13 +31,12 @@
 	
 	<div id="debbugDiv" style="visibility: hidden; color: red;"><fieldset id="debbugField"></fieldset></div>
 	
-  	<h3>Test Catalog service : Get Category</h3>
+     <h3>Test Catalog service : Get Categories</h3>
   	<br/>
-    <input id="t1" type="text" name="tbCategoryId" placeholder="CATEGORY ID"/>
     <button id="bxml" 
-    		onclick="getXML('/jpetstore/jpetstoreCatalog/catalog/getCategory')">Get Category (XML)</button>
+    		onclick="getCategoriesXML('/jpetstore/jpetstoreCatalog/catalog/getCategories')">Get Categories (XML)</button>
     <button id="bjson" 
-    		onclick="getJSON('/jpetstore/jpetstoreCatalog/catalog/getCategory')">Get Category (JSON)</button><br/>
+    		onclick="getCategoriesJSON('/jpetstore/jpetstoreCatalog/catalog/getCategories')">Get Categories (JSON)</button><br/>
      <br/>
 	Response to : <span id="quest">...</span>
      <fieldset>
@@ -55,9 +54,11 @@
 
 </div>
 
-<script src="../js/handleError.js"></script>
+<script src="../js/jsTools.js"></script>
 <script src="../js/handleAjax.js"></script>
-<script src="../js/categoryService.js"></script>
+<script src="../js/handleUrl.js"></script>
+<script src="../js/printJsonXml.js"></script>
+<script src="../js/categoriesService.js"></script>
 
 </body>
 </html>

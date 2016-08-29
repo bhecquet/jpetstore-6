@@ -13,12 +13,16 @@
  *    See the License for the specific language governing permissions and
  *    limitations under the License.
  */
-function handleError() {
-	document.getElementById("debbugField").innerHTML += "<br/><span style=\"color: red;\">JS error happened.</span><br/>";
-	document.getElementById("debbugDiv").style = "visibility:visible;";
+
+function printXmlTableRow(item, elem, index) {
+	if (elem.length > index) {
+		if (elem[index].getElementsByTagName(item).length > 0) {
+			return "<tr><td>" + item + "</td><td>" + elem[index].getElementsByTagName(item)[0].childNodes[0].nodeValue + "</td></tr>"
+		}
+	}
+	return "<tr><td>" + item + "</td><td>undefined</td></tr>"
 }
 
-function debbugError(msg) {
-	document.getElementById("debbugField").innerHTML += "<span style=\"color: black;\">" + msg + "</span><br/>";
-	document.getElementById("debbugDiv").style = "visibility:visible;";
+function printJsonTableRow(item, value) {
+	return "<tr><td>" + item + "</td><td>" + value + "</td></tr>"
 }

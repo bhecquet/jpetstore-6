@@ -31,22 +31,20 @@
 	
 	<div id="debbugDiv" style="visibility: hidden; color: red;"><fieldset id="debbugField"></fieldset></div>
 	
-     <h3>Test Catalog service : Get Products</h3>
+  	<h3>Test Catalog service : Check Item Availability</h3>
   	<br/>
-    <input id="t1" type="text" name="tbCategoryId" placeholder="CATEGORY ID"/>
+    <input id="itemId" type="text" name="tbItemId" placeholder="ITEM ID"/>
     <button id="bxml" 
-    		onclick="getXML('/jpetstore/jpetstoreCatalog/catalog/getProducts')">Get Products (XML)</button>
-    <button id="bjson" 
-    		onclick="getJSON('/jpetstore/jpetstoreCatalog/catalog/getProducts')">Get Products (JSON)</button><br/>
+    		onclick="getAvailability('/jpetstore/jpetstoreCatalog/catalog/checkItem')">Check Item Availability</button><br/>
      <br/>
 	Response to : <span id="quest">...</span>
-     <fieldset>
+	<fieldset>
      	<legend>(Nice)</legend>
      	<br/>
      	<div id="niceResp">...</div>
 	</fieldset>
 	<fieldset>
-     	<legend>(Plain)</legend>
+		<legend>(Plain)</legend>
      	<br/>
 		<div id="resp">...</div>
 	</fieldset>
@@ -55,9 +53,11 @@
 
 </div>
 
-<script src="../js/handleError.js"></script>
+<script src="../js/jsTools.js"></script>
 <script src="../js/handleAjax.js"></script>
-<script src="../js/productsService.js"></script>
+<script src="../js/handleUrl.js"></script>
+<script src="../js/printJsonXml.js"></script>
+<script src="../js/itemCheckService.js"></script>
 
 </body>
 </html>

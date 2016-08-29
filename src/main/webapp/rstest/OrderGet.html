@@ -33,11 +33,11 @@
 	
   	<h3>Test Order service : Get Order</h3>
   	<br/>
-    <input id="t1" type="text" name="tbOrderId" placeholder="ORDER ID"/>
+    <input id="orderId" type="text" name="tbOrderId" placeholder="ORDER ID"/>
     <button id="bxml" 
-    		onclick="getXML('/jpetstore/jpetstoreOrder/orders/getOrder')">Get Order (XML)</button>
+    		onclick="getOrderXML('/jpetstore/jpetstoreOrder/orders/getOrder')">Get Order (XML)</button>
 	<button id="bjson" 
-    		onclick="getJSON('/jpetstore/jpetstoreOrder/orders/getOrder')">Get Order (JSON)</button><br/>
+    		onclick="getOrderJSON('/jpetstore/jpetstoreOrder/orders/getOrder')">Get Order (JSON)</button><br/>
     <br/>
      Response to : <span id="quest">...</span>
      <fieldset>
@@ -55,8 +55,10 @@
 
 </div>
 
-<script src="../js/handleError.js"></script>
+<script src="../js/jsTools.js"></script>
 <script src="../js/handleAjax.js"></script>
+<script src="../js/handleUrl.js"></script>
+<script src="../js/printJsonXml.js"></script>
 <script src="../js/orderService.js"></script>
 
 </div>

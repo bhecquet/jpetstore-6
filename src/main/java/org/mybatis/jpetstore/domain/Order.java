@@ -88,7 +88,7 @@ public class Order implements Serializable {
   private String locale;
   @JsonProperty
   private String status;
-  
+  @JsonProperty
   private List<LineItem> lineItems = new ArrayList<LineItem>();
 
   public int getOrderId() {
@@ -267,8 +267,8 @@ public class Order implements Serializable {
   }
 
   @XmlElement
-  public void setShipToFirstName(String shipFoFirstName) {
-    this.shipToFirstName = shipFoFirstName;
+  public void setShipToFirstName(String shipToFirstName) {
+    this.shipToFirstName = shipToFirstName;
   }
 
   public String getShipToLastName() {
