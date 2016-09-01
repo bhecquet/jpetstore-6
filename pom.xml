@@ -84,6 +84,12 @@
       <version>4.3.1.RELEASE</version>
     </dependency>
     <dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-test</artifactId>
+	    <version>4.3.1.RELEASE</version>
+	    <scope>test</scope>
+	</dependency>
+    <dependency>
       <groupId>net.sourceforge.stripes</groupId>
       <artifactId>stripes</artifactId>
       <version>1.6.0</version>
@@ -99,6 +105,12 @@
       <version>2.0</version>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>servlet-api</artifactId>
+        <version>2.4</version>
+        <scope>provided</scope>
+	</dependency>
     <dependency>
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>
@@ -116,33 +128,55 @@
       <artifactId>junit</artifactId>
       <version>4.12</version>
       <scope>test</scope>
-    </dependency>        
+    </dependency>
+    <dependency>
+	    <groupId>org.glassfish.jersey.test-framework</groupId>
+	    <artifactId>jersey-test-framework-core</artifactId>
+	    <version>2.23.2</version>
+	    <scope>test</scope>
+	</dependency>  
+	<dependency>
+	    <groupId>org.glassfish.jersey.test-framework.providers</groupId>
+	    <artifactId>jersey-test-framework-provider-grizzly2</artifactId>
+	    <version>2.23.2</version>
+	    <scope>test</scope>
+	</dependency>      
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
       <version>2.0.52-beta</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+	    <groupId>org.jhades</groupId>
+	    <artifactId>jhades</artifactId>
+	    <version>1.0.4</version>
+	</dependency>
     
     <!-- SOAP web service -->
     <dependency>
 		<groupId>org.apache.axis2</groupId>
 		<artifactId>axis2-jaxws</artifactId>
 		<version>1.7.1</version>
+		<exclusions>
+			<exclusion>
+				<groupId>javax.ws.rs</groupId>
+				<artifactId>jsr311-api</artifactId>
+			</exclusion>
+		</exclusions>
 	</dependency>
 	<!-- GlassFish (generate the web service from JaxWS) -->
 	<dependency>
 		<groupId>org.glassfish.web</groupId>
 		<artifactId>el-impl</artifactId>
 		<version>2.2</version>
+		<scope>provided</scope>
 	</dependency>
+	
+	
     
     <!-- REST web service -->
-    <dependency>
-		<groupId>javax.ws.rs</groupId>
-		<artifactId>javax.ws.rs-api</artifactId>
-		<version>2.0</version>
-	</dependency>
+   
 	<dependency>
         <groupId>org.glassfish.jersey.containers</groupId>
         <artifactId>jersey-container-servlet</artifactId>
@@ -205,12 +239,29 @@
           <artifactId>tomcat7-maven-plugin</artifactId>
           <version>2.2</version>
       </plugin>
-      <plugin>
+      <!-- <plugin>
           <groupId>org.apache.tomcat.maven</groupId>
           <artifactId>tomcat8-maven-plugin</artifactId>
           <version>2.2</version>
-      </plugin>
+      </plugin> -->
     </plugins>
+    
+    <resources>
+        <resource>
+            <directory>src/main/webapp</directory>
+        </resource>
+        <resource>
+            <directory>src/main/resources</directory>
+        </resource>
+        <resource>
+	        <targetPath>META-INF</targetPath>
+	        <directory>D:\Dev\jpetstore-6</directory>
+	        <includes>
+	          <include>LICENSE</include>
+	          <include>NOTICE</include>
+	        </includes>
+      	</resource>
+    </resources>
   </build>
 
 </project>

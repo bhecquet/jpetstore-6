@@ -37,8 +37,6 @@ public class AccountResources {
 	@Autowired
 	private AccountService accountService;
 	
-	public AccountResources() {}
-	
 	@POST
 	@Path("/getAccountXml")
     @Produces(MediaType.APPLICATION_XML)
