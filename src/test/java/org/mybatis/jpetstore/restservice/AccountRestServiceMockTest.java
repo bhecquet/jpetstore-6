@@ -27,12 +27,8 @@ import org.mockito.Mockito;
 import org.mybatis.jpetstore.domain.Account;
 import org.mybatis.jpetstore.mapper.AccountMapper;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Condition;
-import org.springframework.context.annotation.ConditionContext;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.type.AnnotatedTypeMetadata;
-import org.springframework.core.type.classreading.MethodMetadataReadingVisitor;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -48,7 +44,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  *
  */
 @Configuration
-public class AccountRestServiceMockTest extends SpringContextAwareJerseyTest {
+public class AccountRestServiceMockTest extends SpringContextAwareJerseyTest{
 
 	@Conditional(AccountRestServiceMockTest.class)
     @Bean
@@ -81,5 +77,10 @@ public class AccountRestServiceMockTest extends SpringContextAwareJerseyTest {
 		}
 
     }
+	
+	@Override
+	public Class getResourcesClass() {
+		return AccountResources.class;
+	}
 
 }

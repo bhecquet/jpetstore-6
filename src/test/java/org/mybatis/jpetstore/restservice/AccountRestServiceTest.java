@@ -24,8 +24,8 @@ import javax.ws.rs.core.Response;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class AccountRestServiceTest extends SpringContextAwareJerseyTest {
-
+public class AccountRestServiceTest extends SpringContextAwareJerseyTest{
+	
 	@Test
     public void getAccountInformation() {
 
@@ -37,4 +37,9 @@ public class AccountRestServiceTest extends SpringContextAwareJerseyTest {
 		Response response = target("/accounts/getAccountJson").request().post(Entity.form(form));
 		Assert.assertThat("Should return 200", response.getStatus(), is(200));
     }
+
+	@Override
+	public Class getResourcesClass() {
+		return AccountResources.class;
+	}
 }

@@ -20,9 +20,6 @@ import javax.ws.rs.core.Application;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.test.JerseyTest;
 import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.rules.TestName;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -43,21 +40,34 @@ import org.springframework.core.type.classreading.MethodMetadataReadingVisitor;
 public class SpringContextAwareJerseyTest extends JerseyTest implements Condition {
 
     final private static ThreadLocal<ApplicationContext> context = new ThreadLocal();
-    final private static ThreadLocal<Class> testClass = new ThreadLocal();
+    final private static ThreadLocal<Object> testInstance = new ThreadLocal();
 
+    public Class getResourcesClass() {
+    	throw new UnsupportedOperationException("getResourcesClass must be implemented in Test classes");
+    }
+    
+    /**
+     * this methods help creating mocked beans only when the executing test declares this bean
+     * We avoid creating a conditional bean (annotated with @Conditional) from an other test class
+     */
 	public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
-		return testClass.get().getName().equals(((MethodMetadataReadingVisitor)metadata).getDeclaringClassName());
+		return testInstance.get().getClass().getName().equals(((MethodMetadataReadingVisitor)metadata).getDeclaringClassName());
 	}
 
+	/**
+	 * Configure the JerseyTest application
+	 */
     @Override
 	public Application configure() {
     	
     	// set test class only once. It's the caller test which set it.
     	// configure may be called on Bean init
-    	if (testClass.get() == null) {
-    		testClass.set(this.getClass());
+    	if (testInstance.get() == null) {
+    		testInstance.set(this);
     	}
-	    return new ResourceConfig(AccountResources.class)
+    	
+    	// get resource class from test case to allow this class to be generic
+	    return new ResourceConfig(((SpringContextAwareJerseyTest)(testInstance.get())).getResourcesClass())
 	    		.property("contextConfigLocation", "classpath:WEB-INF/applicationContext.xml");
 	}
 
@@ -65,6 +75,10 @@ public class SpringContextAwareJerseyTest extends JerseyTest implements Conditio
         return context.get();
     }
   
+    /**
+     * Get Spring application context
+     * @return
+     */
     @Bean
     public static ContextHolder contextHolder() {
         return new ContextHolder();
@@ -78,8 +92,12 @@ public class SpringContextAwareJerseyTest extends JerseyTest implements Conditio
         }
     }
     
+    /**
+     * remove testClass name for this thread so that an other test class can write into it
+     * 
+     */
     @AfterClass
     public static void finalizeTest() {
-    	testClass.remove();
+    	testInstance.remove();
     }
 }
