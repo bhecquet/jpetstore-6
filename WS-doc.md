@@ -236,6 +236,18 @@ For application to start on Tomcat (tested on tomcat8), you must:
 - copy jaxws-rt.jar into <TOMCAT_HOME>/lib
 - create folder <TOMCAT_HOME>/endorsed
 - copy gmbal-api-only.jar, ha-api.jar, jaxb-core.jar, jaxb-impl.jar, management-api.jar, policy.jar, stax-ex.jar, streambuffer.jar into <TOMCAT_HOME>/endorsed
+- in pom.xml, exclude jsr311 artifact from axis api
+	<dependency>
+		<groupId>org.apache.axis2</groupId>
+		<artifactId>axis2-jaxws</artifactId>
+		<version>1.7.1</version>
+		<exclusions>
+			<exclusion>
+				<groupId>javax.ws.rs</groupId>
+				<artifactId>jsr311-api</artifactId>
+			</exclusion>
+		</exclusions>
+	</dependency>
 
 ---
 
