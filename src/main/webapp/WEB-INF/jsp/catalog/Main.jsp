@@ -63,7 +63,14 @@ Lizards, Turtles, Snakes <br />
 	<img src="../images/birds_icon.gif" />
 </stripes:link> <br />
 Exotic Varieties</div>
+
+<stripes:link beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
+	event="viewSonarlangage">
+Sonar list langage
+</stripes:link>
 </div>
+
+
 
 <div id="MainImage">
 <div id="MainImageContent">

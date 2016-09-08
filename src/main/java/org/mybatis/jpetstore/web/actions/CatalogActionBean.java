@@ -15,7 +15,9 @@
  */
 package org.mybatis.jpetstore.web.actions;
 
+
 import java.util.List;
+
 
 import net.sourceforge.stripes.action.DefaultHandler;
 import net.sourceforge.stripes.action.ForwardResolution;
@@ -24,14 +26,21 @@ import net.sourceforge.stripes.integration.spring.SpringBean;
 
 import org.mybatis.jpetstore.domain.Category;
 import org.mybatis.jpetstore.domain.Item;
+import org.mybatis.jpetstore.domain.Langage;
 import org.mybatis.jpetstore.domain.Product;
+
 import org.mybatis.jpetstore.service.CatalogService;
+import org.mybatis.jpetstore.service.SonarService;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
 
 /**
  * @author Eduardo Macarron
  *
  */
 @SessionScope
+@Component
 public class CatalogActionBean extends AbstractActionBean {
 
   private static final long serialVersionUID = 5849523372175050635L;
@@ -41,6 +50,11 @@ public class CatalogActionBean extends AbstractActionBean {
   private static final String VIEW_PRODUCT = "/WEB-INF/jsp/catalog/Product.jsp";
   private static final String VIEW_ITEM = "/WEB-INF/jsp/catalog/Item.jsp";
   private static final String SEARCH_PRODUCTS = "/WEB-INF/jsp/catalog/SearchProducts.jsp";
+  private static final String VIEW_SONAR_LANGAGE = "/WEB-INF/jsp/catalog/Sonarlangage.jsp";
+  
+
+  @Value("${props.sonar.url}")
+  private String szUrlSonar;
 
   @SpringBean
   private transient CatalogService catalogService;
@@ -59,6 +73,10 @@ public class CatalogActionBean extends AbstractActionBean {
   private Item item;
   private List<Item> itemList;
 
+  private List<Langage> langageList;
+  
+
+  
   public String getKeyword() {
     return keyword;
   }
@@ -130,6 +148,14 @@ public class CatalogActionBean extends AbstractActionBean {
   public void setProductList(List<Product> productList) {
     this.productList = productList;
   }
+  
+  public List<Langage> getLangageList() {
+	    return langageList;
+	  }
+
+	  public void setLangageList(List<Langage> langageList) {
+	    this.langageList = langageList;
+	  }
 
   public List<Item> getItemList() {
     return itemList;
@@ -164,6 +190,16 @@ public class CatalogActionBean extends AbstractActionBean {
     item = catalogService.getItem(itemId);
     product = item.getProduct();
     return new ForwardResolution(VIEW_ITEM);
+  }
+  
+  public ForwardResolution viewSonarlangage(){
+	 
+	  if(szUrlSonar != null)
+		  setMessage(szUrlSonar);
+	  
+	  langageList = SonarService.getListLangage();
+	  
+	  return new ForwardResolution(VIEW_SONAR_LANGAGE);
   }
 
   public ForwardResolution searchProducts() {
