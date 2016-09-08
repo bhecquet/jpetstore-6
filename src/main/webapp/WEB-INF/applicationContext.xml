@@ -24,6 +24,7 @@
        xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
        xmlns:ws="http://jax-ws.dev.java.net/spring/core"
        xmlns:wss="http://jax-ws.dev.java.net/spring/servlet"
+       xmlns:jaxws="http://cxf.apache.org/jaxws"
        xsi:schemaLocation="http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
      http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
      http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
@@ -33,6 +34,9 @@
      http://jax-ws.dev.java.net/spring/core.xsd
      http://jax-ws.dev.java.net/spring/servlet
      http://jax-ws.dev.java.net/spring/servlet.xsd">
+
+
+	
 
    <!-- in-memory database and a datasource -->
     <jdbc:embedded-database id="dataSource">
@@ -44,11 +48,15 @@
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource" />
     </bean>
-
+    
     <!-- enable component scanning and autowire (beware that this does not enable mapper scanning!) -->    
     <context:component-scan base-package="org.mybatis.jpetstore.service" />
+    
      <context:component-scan base-package="org.mybatis.jpetstore.restservice" />
-
+     
+     <context:property-placeholder location="classpath*:*.properties"/>
+     
+	<context:annotation-config />
     <!-- enable transaction demarcation with annotations -->
     <tx:annotation-driven />
 
@@ -57,10 +65,28 @@
         <property name="dataSource" ref="dataSource" />
         <property name="typeAliasesPackage" value="org.mybatis.jpetstore.domain" />
     </bean>
-
-    <!-- scan for mappers and let them be autowired -->
+    
+   <!-- scan for mappers and let them be autowired -->
     <mybatis:scan base-package="org.mybatis.jpetstore.mapper" />
     
+<!--   <import resource="classpath:META-INF/cxf/cxf.xml" />  -->
+<!--²  <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />  -->
+<!--   <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />  -->
+  
+	<context:component-scan base-package="org.mybatis.jpetstore.soapservice" />
+  <bean id="accountSoapService" 
+        class="org.mybatis.jpetstore.soapservice.AccountSoapImpl">
+  </bean>    
+  
+	<bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+
+		<property name="location">
+			<value>classpath:/app.properties</value>
+		</property>
+	</bean>
+        
+
 <!--     inject mappers into SOAP service -->
 <!--     <wss:binding url="/account"> -->
 <!--         <wss:service> -->

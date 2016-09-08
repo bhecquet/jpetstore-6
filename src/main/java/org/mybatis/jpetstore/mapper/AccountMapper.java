@@ -16,11 +16,14 @@
 package org.mybatis.jpetstore.mapper;
 
 import org.mybatis.jpetstore.domain.Account;
+import org.springframework.stereotype.Repository;
 
 /**
  * @author Eduardo Macarron
  *
  */
+
+@Repository
 public interface AccountMapper {
 
   Account getAccountByUsername(String username);

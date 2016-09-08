@@ -20,8 +20,8 @@
   xmlns="http://java.sun.com/xml/ns/jax-ws/ri/runtime"
   version="2.0">
   <endpoint
-      name="AccountService"
-      implementation="org.mybatis.jpetstore.service.AccountService"
+      name="AccountSoapService"
+      implementation="org.mybatis.jpetstore.soapservice.AccountSoapImpl"
       url-pattern="/account"/>
   <endpoint
       name="CatalogService"
