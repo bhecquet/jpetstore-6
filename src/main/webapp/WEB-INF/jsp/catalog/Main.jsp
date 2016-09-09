@@ -68,6 +68,7 @@ Exotic Varieties</div>
 	event="viewSonarlangage">
 Sonar list langage
 </stripes:link>
+<br/>
 <stripes:link beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
 	event="viewMockedSonarlangage">
 Mocked Sonar list langage
