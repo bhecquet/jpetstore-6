@@ -197,11 +197,21 @@ public class CatalogActionBean extends AbstractActionBean {
 	  if(szUrlSonar != null)
 		  setMessage(szUrlSonar);
 	  
-	  langageList = SonarService.getListLangage();
+	  langageList = SonarService.getListLangage(false);
 	  
 	  return new ForwardResolution(VIEW_SONAR_LANGAGE);
   }
 
+  public ForwardResolution viewMockedSonarlangage(){
+	  
+	  if(szUrlSonar != null)
+		  setMessage(szUrlSonar);
+	  
+	  langageList = SonarService.getListLangage(true);
+	  
+	  return new ForwardResolution(VIEW_SONAR_LANGAGE);
+  }
+  
   public ForwardResolution searchProducts() {
     if (keyword == null || keyword.length() < 1) {
       setMessage("Please enter a keyword to search for, then press the search button.");
