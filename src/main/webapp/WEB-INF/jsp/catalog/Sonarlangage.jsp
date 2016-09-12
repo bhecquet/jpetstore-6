@@ -25,7 +25,7 @@
 
 <h2>${actionBean.category.name}</h2>
 
-<table>
+<table id="langTable">
 	<tr>
 		<th>ID</th>
 		<th>Name</th>
